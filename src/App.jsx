@@ -16,25 +16,48 @@ const App = () => {
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
-      if(!ethereum) {
+      if (!ethereum) {
         console.log("Make sure you have MetaMask");
         setIsLoading(false);
         return;
       } else {
         console.log("We have the ethereum object");
-        const accounts = await ethereum.request({method: 'eth_accounts'});
+        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        const networkId = await ethereum.request({ method: 'net_version' });
 
-        if(accounts.length !== 0) {
+        if (accounts.length !== 0) {
           const account = accounts[0];
           console.log('Found an authorized account:', account);
           setCurrentAccount(account);
+
+            switch (networkId) {
+              case "1":
+                alert('This is mainnet. Please switch to rinkeby network and reload!')
+                return
+              case "2":
+                alert('This is the deprecated Morden test network. Please switch to rinkeby network and reload!')
+                return
+              case "3":
+                alert('This is the ropsten test network. Please switch to rinkeby network and reload!')
+                return
+              case "4":
+                console.log('This is the rinkeby test network.')
+                break;
+              case "42":
+                alert('This is the kovan test network. Please switch to rinkeby network and reload!')
+                return;
+              default:
+                alert('This is an unknown network. Please switch to rinkeby network and reload!')
+                return
+            }
+
         } else {
           console.log("No authorized account found");
         }
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error)
-    }  
+    }
     setIsLoading(false);
   };
 
@@ -43,15 +66,15 @@ const App = () => {
       return <LoadingIndicator />;
     }
 
-    if(!currentAccount) {
+    if (!currentAccount) {
       return (
         <div className="connect-wallet-container">
           <img src="https://cloudflare-ipfs.com/ipfs/QmetsaWYSqkxxiXPEsC8wyAHtvW9WfQ9EWXNHRjS2r1BmG" />
           <br />
-          <button 
+          <button
             className="cta-button connect-wallet-button" onClick={connectWalletAction}
           >
-          Connect Wallet to get Started
+            Connect Wallet to get Started
           </button>
         </div>
       );
@@ -64,17 +87,18 @@ const App = () => {
 
   const connectWalletAction = async () => {
     try {
-      const {ethereum} = window;
-      if(!ethereum) {
+      const { ethereum } = window;
+      if (!ethereum) {
         alert('Get Metamask!');
         return;
       }
 
-      const accounts = await ethereum.request({method: 'eth_requestAccounts',
-    });
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
 
-    console.log('Connected', accounts[0]);
-    setCurrentAccount(accounts[0]);
+      console.log('Connected', accounts[0]);
+      setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);
     }
@@ -97,8 +121,8 @@ const App = () => {
       );
 
       const txn = await gameContract.checkIfUserHasNFT();
-      
-      if(txn.name) {
+
+      if (txn.name) {
         console.log('User has character NFT');
         setCharacterNFT(transformCharacterData(txn));
       } else {
@@ -119,10 +143,10 @@ const App = () => {
       <div className='header'>
         <ul className="topnav">
           <li><a className="active" href="#home">Home</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#news">Arena</a></li>
+          <li><a href="#contact">Work</a></li>
         </ul>
-      </div>    
+      </div>
       <div className='menu'>
         <h1>💲 Increase my salary, please! 💲</h1>
         <p>Team up to increase your all salaries!</p>
@@ -131,7 +155,6 @@ const App = () => {
         {renderContent()}
       </div>
       <div className='footer'>
-        4
       </div>
     </section>
   );
