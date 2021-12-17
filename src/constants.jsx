@@ -7,6 +7,11 @@ const transformCharacterData = (characterData) => {
     hp: characterData.hp,
     maxHp: characterData.maxHp,
     attack: characterData.attack.toNumber(),
+    lifeState: characterData.lifestate,
+    xp: characterData.experience,
+    maxXp: characterData.maxExperience,
+    level: characterData.level,
+    jobDesc: characterData.jobDescription,
   };
 };
 

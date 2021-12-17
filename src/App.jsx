@@ -4,8 +4,11 @@ import SelectCharacter from './Components/SelectCharacter';
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import myEpicGame from './utils/MyEpicGame.json';
 import { ethers } from 'ethers';
+import Home from './Components/Home';
 import Arena from './Components/Arena';
 import LoadingIndicator from './Components/LoadingIndicator';
+import StateProgressBar from './Components/StateProgressbar';
+
 
 const App = () => {
 
@@ -30,26 +33,26 @@ const App = () => {
           console.log('Found an authorized account:', account);
           setCurrentAccount(account);
 
-            switch (networkId) {
-              case "1":
-                alert('This is mainnet. Please switch to rinkeby network and reload!')
-                return
-              case "2":
-                alert('This is the deprecated Morden test network. Please switch to rinkeby network and reload!')
-                return
-              case "3":
-                alert('This is the ropsten test network. Please switch to rinkeby network and reload!')
-                return
-              case "4":
-                console.log('This is the rinkeby test network.')
-                break;
-              case "42":
-                alert('This is the kovan test network. Please switch to rinkeby network and reload!')
-                return;
-              default:
-                alert('This is an unknown network. Please switch to rinkeby network and reload!')
-                return
-            }
+          switch (networkId) {
+            case "1":
+              alert('This is mainnet. Please switch to rinkeby network and reload!')
+              return
+            case "2":
+              alert('This is the deprecated Morden test network. Please switch to rinkeby network and reload!')
+              return
+            case "3":
+              alert('This is the ropsten test network. Please switch to rinkeby network and reload!')
+              return
+            case "4":
+              console.log('This is the rinkeby test network.')
+              break;
+            case "42":
+              alert('This is the kovan test network. Please switch to rinkeby network and reload!')
+              return;
+            default:
+              alert('This is an unknown network. Please switch to rinkeby network and reload!')
+              return
+          }
 
         } else {
           console.log("No authorized account found");
@@ -66,6 +69,8 @@ const App = () => {
       return <LoadingIndicator />;
     }
 
+    const target = window.location.pathname;
+
     if (!currentAccount) {
       return (
         <div className="connect-wallet-container">
@@ -80,8 +85,12 @@ const App = () => {
       );
     } else if (currentAccount && !characterNFT) {
       return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
-    } else if (currentAccount && characterNFT) {
-      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />;
+    } else if (currentAccount && characterNFT && target == "/") {
+      return <Home />
+    } else if (currentAccount && characterNFT && target == "/arena") {
+      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />
+    } else if (currentAccount && characterNFT && target == "/work") {
+      return "WORK"
     }
   };
 
@@ -142,14 +151,13 @@ const App = () => {
     <section className='myGrid'>
       <div className='header'>
         <ul className="topnav">
-          <li><a className="active" href="#home">Home</a></li>
-          <li><a href="#news">Arena</a></li>
-          <li><a href="#contact">Work</a></li>
+          <li><a className="active" href="/">Home</a></li>
+          <li><a href="arena">Arena</a></li>
+          <li><a href="work">Work</a></li>
         </ul>
-      </div>
-      <div className='menu'>
-        <h1>💲 Increase my salary, please! 💲</h1>
-        <p>Team up to increase your all salaries!</p>
+        {characterNFT && (
+          <StateProgressBar characterNFT={characterNFT} />
+        )}
       </div>
       <div className='content'>
         {renderContent()}

@@ -4,6 +4,7 @@ import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import myEpicGame from '../../utils/MyEpicGame.json';
 import './Arena.css';
 import LoadingIndicator from '../LoadingIndicator';
+import StateProgressBar from '../StateProgressbar';
 
 const Arena = ({ characterNFT, setCharacterNFT }) => {
   const [gameContract, setGameContract] = useState(null);
@@ -50,6 +51,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         return { ...prevState, hp: bossHp };
       });
 
+      
       setCharacterNFT((prevState) => {
         return { ...prevState, hp: playerHp };
       });

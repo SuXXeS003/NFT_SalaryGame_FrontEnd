@@ -1,11 +1,11 @@
 {
   "files": {
-    "src/Components/Arena/Arena.css": [
+    "src/Components/StateProgressbar/index.jsx": [
       {
-        "id": "d3ba4283-05a3-4df7-a7c2-d73e44463f6c",
-        "line": 1,
-        "version": 20,
-        "index": 0
+        "id": "a33d7c07-8585-4800-b66f-da1d2e35e72f",
+        "line": 32,
+        "version": 1159,
+        "index": 682
       }
     ]
   }

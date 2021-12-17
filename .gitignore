@@ -3,3 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.replit
+vite.config.js
+.breakpoints
+src/remember
