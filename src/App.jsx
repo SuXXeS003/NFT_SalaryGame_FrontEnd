@@ -74,12 +74,13 @@ const App = () => {
     if (!currentAccount) {
       return (
         <div className="connect-wallet-container">
-          <img src="https://cloudflare-ipfs.com/ipfs/QmetsaWYSqkxxiXPEsC8wyAHtvW9WfQ9EWXNHRjS2r1BmG" />
+          <p> Please connect your wallet to get started. </p>
+          <p> You will become able to mint your own NFT. </p>
           <br />
           <button
             className="cta-button connect-wallet-button" onClick={connectWalletAction}
           >
-            Connect Wallet to get Started
+            Connect
           </button>
         </div>
       );
@@ -148,23 +149,23 @@ const App = () => {
   }, [currentAccount]);
 
   return (
-    <section className='myGrid'>
-      <div className='header'>
+    <div className="page">
+      <section className='menu'>
         <ul className="topnav">
           <li><a className="active" href="/">Home</a></li>
           <li><a href="arena">Arena</a></li>
-          <li><a href="work">Work</a></li>
+          <li><a href="work">Work</a></li> 
         </ul>
+      </section>
+      <section className="sidebar">
         {characterNFT && (
           <StateProgressBar characterNFT={characterNFT} />
         )}
-      </div>
-      <div className='content'>
-        {renderContent()}
-      </div>
-      <div className='footer'>
-      </div>
-    </section>
+      </section>
+      <section className='content'>
+          {renderContent()}
+      </section>
+    </div>
   );
 };
 
