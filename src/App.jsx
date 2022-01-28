@@ -70,8 +70,10 @@ const App = () => {
     }
 
     const target = window.location.pathname;
-
-    if (!currentAccount) {
+    Array.from(document.querySelectorAll('.link.active')).forEach(function(el) { 
+      el.classList.remove('active');
+    });
+    if (!currentAccount) {      
       return (
         <div className="connect-wallet-container">
           <p> Please connect your wallet to get started. </p>
@@ -85,12 +87,20 @@ const App = () => {
         </div>
       );
     } else if (currentAccount && !characterNFT) {
+      let el = document.getElementById("home");
+      el.classList.add('active');
       return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
     } else if (currentAccount && characterNFT && target === "/") {
+      let el = document.getElementById("home");
+      el.classList.add('active');
       return <Home />
     } else if (currentAccount && characterNFT && target === "/arena") {
+      let el = document.getElementById("arena");
+      el.classList.add('active');
       return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />
     } else if (currentAccount && characterNFT && target === "/work") {
+      let el = document.getElementById("work");
+      el.classList.add('active');
       return "WORK"
     }
   };
@@ -149,26 +159,29 @@ const App = () => {
   }, [currentAccount]);
 
   return (
-    <div className="page">
-      <section className='menu'>
-        <ul className="topnav">
-          <li><a className="active" href="/">Home</a></li>
-          <li><a href="arena">Arena</a></li>
-          <li><a href="work">Work</a></li> 
-        </ul>
-      </section>
+    <div className="grid-container">
+      <div className='menu'>
+        <nav>
+          <a id="home" className="link" href="/">Home</a>
+          <a id="arena" className="link active" href="arena">Arena</a>
+          <a id="work" className="link" href="work">Work</a>
+        </nav>
+      </div>
+      
+      <div className="sidebar">
       {characterNFT && (
-      <section className="sidebar">
-        <div className="characterShort">
+        <div>
+          <div className="characterShort">
+          </div>
+          <div className="statebar">
+            <StateProgressBar characterNFT={characterNFT} />
+          </div>
         </div>
-        <div className="statebar">
-          <StateProgressBar characterNFT={characterNFT} />
-        </div>
-      </section>
       )}
-      <section className='content'>
+      </div>
+      <div className='content'>
           {renderContent()}
-      </section>
+      </div>
     </div>
   );
 };
