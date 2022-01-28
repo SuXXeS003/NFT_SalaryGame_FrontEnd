@@ -86,11 +86,11 @@ const App = () => {
       );
     } else if (currentAccount && !characterNFT) {
       return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
-    } else if (currentAccount && characterNFT && target == "/") {
+    } else if (currentAccount && characterNFT && target === "/") {
       return <Home />
-    } else if (currentAccount && characterNFT && target == "/arena") {
+    } else if (currentAccount && characterNFT && target === "/arena") {
       return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />
-    } else if (currentAccount && characterNFT && target == "/work") {
+    } else if (currentAccount && characterNFT && target === "/work") {
       return "WORK"
     }
   };

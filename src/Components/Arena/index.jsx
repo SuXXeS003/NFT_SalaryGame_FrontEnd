@@ -4,7 +4,6 @@ import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import myEpicGame from '../../utils/MyEpicGame.json';
 import './Arena.css';
 import LoadingIndicator from '../LoadingIndicator';
-import StateProgressBar from '../StateProgressbar';
 
 const Arena = ({ characterNFT, setCharacterNFT }) => {
   const [gameContract, setGameContract] = useState(null);
@@ -145,7 +144,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
       )}
       <div className="middle-container">
         <button className="cta-button" onClick={runAttackAction}>
-          💥 Raise your salary!
+          Raise your salary!
         </button>
         <button className="cta-button" onClick={runReviveAction}>
           Revive!
@@ -153,19 +152,19 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         {attackState === 'requesting' && (
           <div className="loading-indicator">
             <LoadingIndicator />
-            <p>Attacking ⚔️</p>
+            <p>Attacking </p>
           </div>
         )}
       </div>
       {boss && characterNFT && (
         <div id="toast" className={showToast ? 'show' : ''}>
-          <div id="desc">{`💥 ${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
+          <div id="desc">{`${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
         </div>
       )}
       {boss && (
         <div className="boss-container">
           <div className={`boss-content ${attackState}`}>
-            <h2>🔥 {boss.name} 🔥</h2>
+            <h2>{boss.name}</h2>
             <div className="image-content">
               <img src={boss.imageURI} alt={`Boss ${boss.name}`} />
               <div className="health-bar">
