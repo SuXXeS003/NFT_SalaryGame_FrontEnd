@@ -157,11 +157,15 @@ const App = () => {
           <li><a href="work">Work</a></li> 
         </ul>
       </section>
+      {characterNFT && (
       <section className="sidebar">
-        {characterNFT && (
+        <div className="characterShort">
+        </div>
+        <div className="statebar">
           <StateProgressBar characterNFT={characterNFT} />
-        )}
+        </div>
       </section>
+      )}
       <section className='content'>
           {renderContent()}
       </section>

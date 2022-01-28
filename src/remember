@@ -13,3 +13,7 @@ async function asyncCall() {
   console.log(result);
   // expected output: 'resolved'
 }
+
+
+
+  background: -webkit-linear-gradient(top, #DEC4A1 20%, #B8B8FF);

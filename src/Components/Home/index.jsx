@@ -4,11 +4,11 @@ import './Home.css';
 
 const Home = () => {
   return (
-    <div>
+    <div className="home-content">
       <h2>💲 Try to request a salary raise. Empower the people! 💲</h2>
       <p>Team up to increase your all salaries!</p>
       <img src="https://cloudflare-ipfs.com/ipfs/QmetsaWYSqkxxiXPEsC8wyAHtvW9WfQ9EWXNHRjS2r1BmG" />
-      <div className="home-content">
+      <div className="content-text">
         <p>We all know that.</p>
         <ul>
           <li>- You always give full performance.</li>
