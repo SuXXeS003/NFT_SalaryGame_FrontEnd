@@ -118,63 +118,65 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
   }, []);
 
   return (
-    <div className="arena-container">
-      {characterNFT && (
-        <div className="players-container">
-          <div className="player-content">
-            <div className="player">
+    <div>
+      <div className="arena-container">
+        {characterNFT && (
+          <div className="players-container">
+            <div className="player-content">
+              <div className="player">
+                <div className="image-content">
+                  <h2>{characterNFT.name}</h2>
+                  <img
+                    src={characterNFT.imageURI}
+                    alt={`Character ${characterNFT.name}`}
+                  />
+                  <div className="health-bar">
+                    <progress value={characterNFT.hp} max={characterNFT.maxHp} />
+                    <p>{`${characterNFT.hp} / ${characterNFT.maxHp} Arguments`}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div className="active-players">
+            <h2>Active Players</h2>
+            <div className="players-list">{renderActivePlayersList()}</div>
+          </div> */}
+          </div>
+        )}
+        <div className="middle-container">
+          <button className="cta-button" onClick={runAttackAction}>
+            Raise your salary!
+          </button>
+          <button className="cta-button" onClick={runReviveAction}>
+            Revive!
+          </button>
+          {attackState === 'requesting' && (
+            <div className="loading-indicator">
+              <LoadingIndicator />
+              <p>Attacking </p>
+            </div>
+          )}
+        </div>
+        {boss && characterNFT && (
+          <div id="toast" className={showToast ? 'show' : ''}>
+            <div id="desc">{`${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
+          </div>
+        )}
+        {boss && (
+          <div className="boss-container">
+            <div className={`boss-content ${attackState}`}>
+              <h2>{boss.name}</h2>
               <div className="image-content">
-                <h2>{characterNFT.name}</h2>
-                <img
-                  src={characterNFT.imageURI}
-                  alt={`Character ${characterNFT.name}`}
-                />
+                <img src={boss.imageURI} alt={`Boss ${boss.name}`} />
                 <div className="health-bar">
-                  <progress value={characterNFT.hp} max={characterNFT.maxHp} />
-                  <p>{`${characterNFT.hp} / ${characterNFT.maxHp} Arguments`}</p>
+                  <progress value={boss.hp} max={boss.maxHp} />
+                  <p>{`${boss.hp} / ${boss.maxHp} Ignorance`}</p>
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className="active-players">
-          <h2>Active Players</h2>
-          <div className="players-list">{renderActivePlayersList()}</div>
-        </div> */}
-        </div>
-      )}
-      <div className="middle-container">
-        <button className="cta-button" onClick={runAttackAction}>
-          Raise your salary!
-        </button>
-        <button className="cta-button" onClick={runReviveAction}>
-          Revive!
-        </button>
-        {attackState === 'requesting' && (
-          <div className="loading-indicator">
-            <LoadingIndicator />
-            <p>Attacking </p>
-          </div>
         )}
       </div>
-      {boss && characterNFT && (
-        <div id="toast" className={showToast ? 'show' : ''}>
-          <div id="desc">{`${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
-        </div>
-      )}
-      {boss && (
-        <div className="boss-container">
-          <div className={`boss-content ${attackState}`}>
-            <h2>{boss.name}</h2>
-            <div className="image-content">
-              <img src={boss.imageURI} alt={`Boss ${boss.name}`} />
-              <div className="health-bar">
-                <progress value={boss.hp} max={boss.maxHp} />
-                <p>{`${boss.hp} / ${boss.maxHp} Ignorance`}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

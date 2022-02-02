@@ -93,15 +93,17 @@ const App = () => {
     } else if (currentAccount && characterNFT && target === "/") {
       let el = document.getElementById("home");
       el.classList.add('active');
-      return <Home />
+      return <Home />;
     } else if (currentAccount && characterNFT && target === "/arena") {
       let el = document.getElementById("arena");
       el.classList.add('active');
-      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />
+      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />;
     } else if (currentAccount && characterNFT && target === "/work") {
       let el = document.getElementById("work");
       el.classList.add('active');
-      return "WORK"
+      return "WORK";
+    } else {
+      return <Home />;
     }
   };
 
@@ -159,26 +161,23 @@ const App = () => {
   }, [currentAccount]);
 
   return (
-    <div className="grid-container">
-      <div className='menu'>
-        <nav>
-          <a id="home" className="link" href="/">Home</a>
-          <a id="arena" className="link active" href="arena">Arena</a>
-          <a id="work" className="link" href="work">Work</a>
-        </nav>
-      </div>
-      
-      <div className="sidebar">
-      {characterNFT && (
-        <div>
-          <div className="characterShort">
-          </div>
-          <div className="statebar">
-            <StateProgressBar characterNFT={characterNFT} />
-          </div>
-        </div>
-      )}
-      </div>
+    <div>
+      <div className="header">
+      <nav className="navigation">
+         <ul>
+            <li><a id="home" className="link" href="/">Home</a></li>
+            <li>
+              <a>Arena</a>
+              <ul className="drop-menu">
+                <li><a id="arena" className="link" href="arena">Boss1</a></li>
+                <li><a id="arena" className="link" href="Boss1">Boss2</a></li>
+                <li><a id="arena" className="link" href="Boss2">Boss3</a></li>
+              </ul>
+              </li>
+            <li><a id="work" className="link" href="work">Work</a></li>
+         </ul> 
+      </nav>
+   </div>
       <div className='content'>
           {renderContent()}
       </div>

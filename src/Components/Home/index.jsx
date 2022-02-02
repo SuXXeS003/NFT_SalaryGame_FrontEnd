@@ -10,11 +10,9 @@ const Home = () => {
       <img src="https://cloudflare-ipfs.com/ipfs/QmetsaWYSqkxxiXPEsC8wyAHtvW9WfQ9EWXNHRjS2r1BmG" alt="home"/>
       <div className="home-content">
         <p>We all know that.</p>
-        <ul>
-          <li>- You always give full performance.</li>
-          <li>- You never complain.</li>
-          <li>- Your results always exceed the requirements.</li>
-        </ul>
+        <p>You always give full performance.</p>
+        <p>You never complain.</p>
+        <p>Your results always exceed the requirements.</p>
         <p>
           And yet. When you ask for more money, you always get the same answer: NO.
         </p>

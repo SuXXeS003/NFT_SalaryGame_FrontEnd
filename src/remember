@@ -1,3 +1,5 @@
+// Timed function
+
 function resolveAfter2Seconds() {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -15,5 +17,20 @@ async function asyncCall() {
 }
 
 
-
+//Beispiel Gradient
   background: -webkit-linear-gradient(top, #DEC4A1 20%, #B8B8FF);
+
+
+//SIDEBAR KRAM
+  <div className="charInfo">
+          {characterNFT && (
+            <div>
+              <div className="characterShort">
+                <p>NAME</p>
+              </div>
+              <div className="statebar">
+                <StateProgressBar characterNFT={characterNFT} />
+              </div>
+            </div>
+          )}
+          </div>
