@@ -178,8 +178,13 @@ const App = () => {
          </ul> 
       </nav>
    </div>
-      <div className='content'>
-          {renderContent()}
+        <div className='content'>
+            <div className="sidebar">
+                  
+            </div>
+            <div className="mainContent">
+             {renderContent()}
+            </div>
       </div>
     </div>
   );
