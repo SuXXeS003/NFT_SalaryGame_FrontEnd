@@ -3,7 +3,10 @@ import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import myEpicGame from '../../utils/MyEpicGame.json';
 import './Arena.css';
-import LoadingIndicator from '../LoadingIndicator';
+import LoadingIndicator from '../utils/LoadingIndicator';
+import BossCard from '../Cards/BossCard';
+import PlayerCard from '../Cards/PlayerCard';
+import StdButton from '../utils/Button';
 
 const Arena = ({ characterNFT, setCharacterNFT }) => {
   const [gameContract, setGameContract] = useState(null);
@@ -40,11 +43,6 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         const reviveTxn = await gameContract.reviveCharacter();
         await reviveTxn.wait();
         console.log('reviveTxn:', reviveTxn);
-
-        setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-        }, 5000);
       }
     } catch (error) {
       console.error('Error reviving player:', error);
@@ -79,21 +77,35 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
       });
     };
 
-    const onPlayerDead = (sender, timestamp, tokenId) => {
-      console.log("Deathtime:::", new Date(timestamp.toNumber()));
+    const onPlayerRevived = (newPlayerHp) => {
+      const playerHp = newPlayerHp.toNumber();
 
+      console.log(`ReviceComplete: Player Hp: ${playerHp}`);
+
+      setCharacterNFT((prevState) => {
+        return {
+          ...prevState,
+          hp: playerHp,
+        };
+      });
+    };
+
+    const onPlayerDead = (timestamp) => {
+      console.log("Deathtime:::", new Date(timestamp.toNumber()*1000));
     };
 
     if (gameContract) {
       fetchBoss();
       gameContract.on('AttackComplete', onAttackComplete);
       gameContract.on('PlayerDead', onPlayerDead);
+      gameContract.on('PlayerRevived', onPlayerRevived);
     }
 
     return () => {
       if (gameContract) {
         gameContract.off('AttackComplete', onAttackComplete);
         gameContract.off('PlayerDead', onPlayerDead);
+        gameContract.off('PlayerRevived', onPlayerRevived);
       }
     }
   }, [gameContract]);
@@ -121,35 +133,11 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
     <div>
       <div className="arena-container">
         {characterNFT && (
-          <div className="players-container">
-            <div className="player-content">
-              <div className="player">
-                <div className="image-content">
-                  <h2>{characterNFT.name}</h2>
-                  <img
-                    src={characterNFT.imageURI}
-                    alt={`Character ${characterNFT.name}`}
-                  />
-                  <div className="health-bar">
-                    <progress value={characterNFT.hp} max={characterNFT.maxHp} />
-                    <p>{`${characterNFT.hp} / ${characterNFT.maxHp} Arguments`}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <div className="active-players">
-            <h2>Active Players</h2>
-            <div className="players-list">{renderActivePlayersList()}</div>
-          </div> */}
-          </div>
+          <PlayerCard name={characterNFT.name} imageURI={characterNFT.imageURI} hp={characterNFT.hp} maxHp={characterNFT.maxHp}/>
         )}
         <div className="middle-container">
-          <button className="cta-button" onClick={runAttackAction}>
-            Raise your salary!
-          </button>
-          <button className="cta-button" onClick={runReviveAction}>
-            Revive!
-          </button>
+          <StdButton btnColor='red' type="rounded" labelColor='black' onClick={runAttackAction}>Raise your salary!</StdButton>
+          <StdButton btnColor='red' type="rounded" labelColor='black' onClick={runReviveAction}>Revive!</StdButton>
           {attackState === 'requesting' && (
             <div className="loading-indicator">
               <LoadingIndicator />
@@ -157,23 +145,12 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
             </div>
           )}
         </div>
+        {boss && (
+          <BossCard boss={boss} attackState={attackState}/>
+        )}
         {boss && characterNFT && (
           <div id="toast" className={showToast ? 'show' : ''}>
             <div id="desc">{`${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
-          </div>
-        )}
-        {boss && (
-          <div className="boss-container">
-            <div className={`boss-content ${attackState}`}>
-              <h2>{boss.name}</h2>
-              <div className="image-content">
-                <img src={boss.imageURI} alt={`Boss ${boss.name}`} />
-                <div className="health-bar">
-                  <progress value={boss.hp} max={boss.maxHp} />
-                  <p>{`${boss.hp} / ${boss.maxHp} Ignorance`}</p>
-                </div>
-              </div>
-            </div>
           </div>
         )}
       </div>

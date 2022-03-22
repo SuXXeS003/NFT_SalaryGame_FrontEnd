@@ -6,8 +6,8 @@ import myEpicGame from './utils/MyEpicGame.json';
 import { ethers } from 'ethers';
 import Home from './Components/Home';
 import Arena from './Components/Arena';
-import LoadingIndicator from './Components/LoadingIndicator';
-import StateProgressBar from './Components/StateProgressbar';
+import LoadingIndicator from './Components/utils/LoadingIndicator';
+//import StateProgressBar from './Components/StateProgressbar';
 
 
 const App = () => {
