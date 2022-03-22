@@ -133,7 +133,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
     <div>
       <div className="arena-container">
         {characterNFT && (
-          <PlayerCard name={characterNFT.name} imageURI={characterNFT.imageURI} hp={characterNFT.hp} maxHp={characterNFT.maxHp}/>
+          <PlayerCard player={characterNFT} />
         )}
         <div className="middle-container">
           <StdButton btnColor='red' type="rounded" labelColor='black' onClick={runAttackAction}>Raise your salary!</StdButton>

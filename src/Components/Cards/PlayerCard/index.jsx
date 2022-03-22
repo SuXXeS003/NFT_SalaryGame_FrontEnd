@@ -7,14 +7,14 @@ const PlayerCard = (props) => {
         <div className="player-content">
             <div className="player">
             <div className="image-content">
-                <h2>{props.name}</h2>
+                <h2>{props.player.name}</h2>
                 <img
-                src={props.imageURI}
-                alt={`Character ${props.name}`}
+                src={props.player.imageURI}
+                alt={`Character ${props.player.name}`}
                 />
                 <div className="health-bar">
-                <progress value={props.hp} max={props.maxHp} />
-                <p>{`${props.hp} / ${props.maxHp} Arguments`}</p>
+                <progress value={props.player.hp} max={props.player.maxHp} />
+                <p>{`${props.player.hp} / ${props.player.maxHp} Arguments`}</p>
                 </div>
             </div>
             </div>
