@@ -7,13 +7,22 @@ import LoadingIndicator from '../utils/LoadingIndicator';
 import BossCard from '../Cards/BossCard';
 import PlayerCard from '../Cards/PlayerCard';
 import StdButton from '../utils/Button';
+import Toast from '../utils/Toast';
 
 const Arena = ({ characterNFT, setCharacterNFT }) => {
   const [gameContract, setGameContract] = useState(null);
   const [boss, setBoss] = useState(null);
 
   const [attackState, setAttackState] = useState('');
-  const [showToast, setShowToast] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const showToast = () => {
+    setShow(true);
+  };
+
+  const hideToast = () => {
+    setShow(false);
+  };
 
   const runAttackAction = async () => {
     try {
@@ -25,10 +34,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         console.log('attackTxn:', attackTxn);
         setAttackState('hit');
 
-        setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-        }, 5000);
+        showToast();
       }
     } catch (error) {
       console.error('Error attacking boss:', error);
@@ -43,11 +49,17 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         const reviveTxn = await gameContract.reviveCharacter();
         await reviveTxn.wait();
         console.log('reviveTxn:', reviveTxn);
+
+        showToast();
       }
     } catch (error) {
       console.error('Error reviving player:', error);
     }
   };
+
+  const viewToast = async () => {
+    showToast();
+  }
 
   useEffect(() => {
     const fetchBoss = async () => {
@@ -138,6 +150,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         <div className="middle-container">
           <StdButton btnColor='red' type="rounded" labelColor='black' onClick={runAttackAction}>Raise your salary!</StdButton>
           <StdButton btnColor='red' type="rounded" labelColor='black' onClick={runReviveAction}>Revive!</StdButton>
+          <StdButton btnColor='red' type="rounded" labelColor='black' onClick={viewToast}>TOAST!</StdButton>
           {attackState === 'requesting' && (
             <div className="loading-indicator">
               <LoadingIndicator />
@@ -148,11 +161,13 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         {boss && (
           <BossCard boss={boss} attackState={attackState}/>
         )}
-        {boss && characterNFT && (
-          <div id="toast" className={showToast ? 'show' : ''}>
-            <div id="desc">{`${boss.name} was requested to raise salaries with ${characterNFT.attack} persuasion!`}</div>
-          </div>
-        )}
+        <div id="toast">
+          {boss && characterNFT && (
+            <Toast show={show} hideToast={hideToast}>
+              This is some text
+            </Toast>
+          )}
+        </div>
       </div>
     </div>
   );

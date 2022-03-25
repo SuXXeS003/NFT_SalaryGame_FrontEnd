@@ -9,8 +9,9 @@
 .content {
   text-align: center;
   padding-top: 80px;
-  background-color: #9595b2;
+  background-color: #181616;
   height: 100vh;
+  color: white;
 }
 
 a {
@@ -18,7 +19,7 @@ a {
   font-weight: 300;
   letter-spacing: 2px;
   text-decoration: none;
-  background: #4B4A67;
+  background: #00bd00;
   padding: 20px 5px;
   display: inline-block;
   width: 100%;
@@ -43,7 +44,7 @@ nav > a:link, a:visited, a:hover, a:active{
 }
 
 nav a:hover {
-  background: #75748a;
+  background: #008600;
 }
 
 ul.drop-menu li {

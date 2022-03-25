@@ -15,4 +15,10 @@ const transformCharacterData = (characterData) => {
   };
 };
 
-export { CONTRACT_ADDRESS, transformCharacterData };
+const TOAST_TIMEOUT = 3000;
+
+export { 
+  CONTRACT_ADDRESS, 
+  transformCharacterData, 
+  TOAST_TIMEOUT 
+};
