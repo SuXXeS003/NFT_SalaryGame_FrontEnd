@@ -15,6 +15,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
 
   const [attackState, setAttackState] = useState('');
   const [show, setShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const showToast = () => {
     setShow(true);
@@ -34,6 +35,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         console.log('attackTxn:', attackTxn);
         setAttackState('hit');
 
+        setToastMessage('You have successfully attacked the boss!');
         showToast();
       }
     } catch (error) {
@@ -50,6 +52,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         await reviveTxn.wait();
         console.log('reviveTxn:', reviveTxn);
 
+        setToastMessage('You have successfully revived your character!');
         showToast();
       }
     } catch (error) {
@@ -58,6 +61,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
   };
 
   const viewToast = async () => {
+    setToastMessage("Only view purpose!");
     showToast();
   }
 
@@ -163,9 +167,7 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
         )}
         <div id="toast">
           {boss && characterNFT && (
-            <Toast show={show} hideToast={hideToast}>
-              This is some text
-            </Toast>
+            <Toast show={show} hideToast={hideToast} message={toastMessage} />
           )}
         </div>
       </div>

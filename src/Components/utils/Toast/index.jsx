@@ -18,7 +18,11 @@ const Toast = props => {
         .querySelector('#toast')
         .appendChild(node)
         .classList.add('toast');
-
+      
+      document
+        .querySelector('.toast')
+        .innerHTML = props.message;
+      
       setTimeout(() => {
         removeNode();
         props.hideToast();
