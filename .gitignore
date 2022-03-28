@@ -5,4 +5,3 @@ dist-ssr
 *.local
 .breakpoints
 src/remember
-package-lock.json
