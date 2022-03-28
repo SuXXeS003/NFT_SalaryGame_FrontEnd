@@ -1,7 +1,9 @@
 {
   "routes": [
         { "src": "/[^.]+", "dest": "/", "status": 200 },
-        { "src": "/arena[^.]+", "dest": "/arena", "status": 200 },
+        { "src": "/Boss1[^.]+", "dest": "/Boss1", "status": 200 },
+        { "src": "/Boss2[^.]+", "dest": "/Boss2", "status": 200 },
+        { "src": "/Boss3[^.]+", "dest": "/Boss3", "status": 200 },
         { "src": "/work[^.]+", "dest": "/work", "status": 200 }
     ]
 }

@@ -67,10 +67,12 @@ const App = () => {
             return <LoadingIndicator />;
         }
 
-        const target = window.location.pathname;
+        let target = window.location.pathname;
         Array.from(document.querySelectorAll('.link.active')).forEach(function(el) { 
             el.classList.remove('active');
         });
+
+        target = target.substring(1);
       
         if (!currentAccount) { // Not connected with Metamask
             return (
@@ -89,16 +91,16 @@ const App = () => {
             let el = document.getElementById("home");
             el.classList.add('active');
             return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
-        } else if (currentAccount && characterNFT && target === "/") { // Connected && NFT choosen, Target "/"
+        } else if (currentAccount && characterNFT && target === "") { // Connected && NFT choosen, Target "/"
             let el = document.getElementById("home");
             el.classList.add('active');
             return <Home />;
-        } else if (currentAccount && characterNFT && target === "/arena") { // Connected && NFT choosen, Target "/arena"
-            let el = document.getElementById("arena");
+        } else if ((currentAccount && characterNFT) && target === "Boss1" || target === "Boss2" || target === "Boss3") { // Connected && NFT choosen, Target "/Boss*"
+            let el = document.getElementById("Boss1");
             el.classList.add('active');
             return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />;
-        } else if (currentAccount && characterNFT && target === "/work") { // Connected && NFT choosen, Target "/work"
-            let el = document.getElementById("work");
+        } else if (currentAccount && characterNFT && target === "work") { // Connected && NFT choosen, Target "/work"
+            let el = document.getElementById(target);
             el.classList.add('active');
             return "WORK";
         } else {
@@ -156,7 +158,7 @@ const App = () => {
             fetchNFTMetadata();
         }
     }, [currentAccount]);
-
+// TODO Need to implement real react router in mainContent DIV 
     return (
         <div>
             <div className="header">
@@ -166,9 +168,9 @@ const App = () => {
                         <li>
                         <a>Arena</a>
                         <ul className="drop-menu">
-                            <li><a id="arena" className="link" href="arena">Boss1</a></li>
-                            <li><a id="arena" className="link" href="Boss1">Boss2</a></li>
-                            <li><a id="arena" className="link" href="Boss2">Boss3</a></li>
+                            <li><a id="Boss1" className="link" href="Boss1">Boss1</a></li>
+                            <li><a id="Boss2" className="link" href="Boss2">Boss2</a></li>
+                            <li><a id="Boss3" className="link" href="Boss3">Boss3</a></li>
                         </ul>
                         </li>
                         <li><a id="work" className="link" href="work">Work</a></li>
@@ -180,7 +182,7 @@ const App = () => {
                     
                 </div>
                 <div className="mainContent">
-                {renderContent()}
+                    {renderContent()}
                 </div>
             </div>
         </div>
